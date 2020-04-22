@@ -1,0 +1,63 @@
+/* Code background image w/ blur */ 
+body {
+    background-image: url("../img/code.jpg");
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    display: block;
+    background-position: center;
+    background-size: cover;
+}
+
+/* Jumbotron */ 
+.jumbotron{
+    text-align: center;
+    color: #fff;
+    opacity: 0.95;
+    margin-top: -40px;
+    margin-bottom: 8px;
+    border-radius: 15px;
+}
+
+.jumbotron p {
+    margin: 0px 50px;
+}
+
+.jumbotron #start-btn {
+    margin-top: 5px;
+    margin-bottom: -25px;
+}
+
+
+/* Quiz Cards */
+
+.card #status-card {
+    font-size: 1.3em;
+    color: #fff;
+    margin-top: -10px;
+    margin-bottom: -30px;
+}
+
+.card button {
+    text-align: left;
+    margin: 10px 5px;
+}
+
+.card-title #question-timer li {
+    display: inline-flex;
+    list-style: none;
+}
+
+.card-title #question-timer #score-text {
+    float: right;
+    font-weight: 500;
+}
+
+.card-title #question-timer #time-text {
+    float: right;
+    font-weight: 500;
+}
+
+/* the buttons were just too long on the right edge ;) */ 
+.card #answer-buttons button.btn-lg {
+    width: 99%;
+}
