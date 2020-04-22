@@ -13,29 +13,24 @@
 
 <body>
     <div class="container">
-        <!-- Jumbotron inbetween columns -->
-        <div class="row">
-            <div class="col"></div>
-            <div class="jumbotron bg-dark col-sm-10">
-                <h2>Code Quiz</h2>
-                <p>This is a short quiz on coding fundamentals. Answer 5 questions in 60 seconds. Each correct choice
-                    scores 1 point, and each wrong answer
-                    costs 5 seconds. Click start to begin.
-                </p>
-                <!-- Start Button -->
-                <button type="button" class="btn btn-success" id="start-btn">Start</button>
-            </div>
-            <div class="col"></div>
+        <div class="title-div">
+            <h3>Coding Quiz</h3>
+            <p>This is a short quiz on coding fundamentals. Answer 5 questions in 60 seconds. Each correct choice
+                scores 1 point, and each wrong answer
+                costs 5 seconds. Click start to begin.
+            </p>
+            <!-- Start Button -->
+            <button type="button" class="btn btn-success" id="start-btn">Start</button>
         </div>
 
-        <!-- Quiz card -->
         <div class="row">
+            <!-- spacer col -->
             <div class="col"></div>
+            <!-- Question, Score, Timer -->
             <div class="col-sm-9">
                 <div class="card bg-secondary">
                     <div class="card-body">
                         <div class="card-title" id="status-card">
-                            <!-- Question, Score, Timer Bar -->
                             <ul id="question-timer">
                                 <li id="display-q">Click Start When Ready!</li>
                                 <!-- can't figure out why I had to place these in reverse order -->
@@ -46,15 +41,15 @@
                     </div>
                 </div>
             </div>
+            <!-- spacer col -->
             <div class="col"></div>
         </div>
+
         <div class="row">
-            <!-- magic spacer row -->
-            <div class="col">.</div>
-        </div>
-        <!-- Multiple Choice options -->
-        <div class="row">
+            <!-- spacer col -->
             <div class="col"></div>
+
+            <!-- Answer Buttons -->
             <div class="col-sm-9">
                 <div class="card bg-secondary" style="opacity: 0" id="quiz-card">
                     <div class="card-body">
@@ -67,12 +62,30 @@
                     </div>
                 </div>
             </div>
+
+            <!-- spacer col -->
             <div class="col"></div>
         </div>
-    </div>
-    </div>
 
-    <script src="./assets/js/script.js"></script>
+        <div class="row">
+            <!-- spacer col -->
+            <div class="col"></div>
+
+            <div class="col-sm-9">
+                <div class="card bg-secondary" id="high-scores">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <ul id="score-list">High Scores:</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- spacer col -->
+            <div class="col"></div>
+        </div>
+
+        <script src="./assets/js/script.js"></script>
 </body>
 
 </html>

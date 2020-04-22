@@ -120,9 +120,6 @@ function makeQuiz() {
             buttons[i].textContent = fillButtons[i];
         }
     }
-    // else {
-    //     endGame();                              // recently changed!
-    // }
 }
 
 // add listener to all buttons, send user clicks to appropriate functions
@@ -131,9 +128,11 @@ answerButtons.addEventListener("click", function () {
     event.preventDefault();
     // puts textContent of the clicked button into userChoice
     var userChoice = event.target.textContent;
+
     // pulls rightAnswer from questionBank
     var rightAnswer = questionBank[i].correctAnswer;
-    console.log("User: " + userChoice);
+    console.log("User: " + userChoice);                     // need to dislay right / wrong
+
     if (userChoice == rightAnswer) {
         console.log("correct");
         correctNext();
@@ -172,7 +171,76 @@ function nextQuestion() {
             buttons[i].textContent = fillButtons[i];
         }
     }
-    // else if (questionIndex == questionBank.length - 1) {
+    else {
+        setTimeout(function () {
+            alert("Pencils down. Your score was " + score + " out of 5.");
+        }, 300);
+        endGame();
+    }
+}
+
+// endGame() prompts to save high score, OK or Cancel clearBoard()
+var play;
+function endGame() {
+    // resetTimer();
+    setTimeout(function () {
+        play = confirm("Would you like to save your score?");
+        if (play == true) {
+            console.log(true)
+            questionIndex = 0;
+            // score = 0;
+            scoreText.textContent = "Score: " + score;
+            highScore();
+        }
+        else {
+            clearBoard();
+        }
+    }, 1000);
+}
+
+function clearBoard() {
+    score = 0;
+    scoreText.textContent = "Score: " + score;
+    // hides the quiz buttons until restart
+    setTimeout(function () {
+        var quizCard = document.querySelector("#quiz-card");
+        quizCard.style.opacity = 0;
+    }, 1000);
+    // display Start button, nextQuestion() starts with questionIndex++, need -1 to show first question
+    setTimeout(function () {
+        startBtn.style.opacity = 1;
+        questionIndex = -1;
+        nextQuestion();
+        // slightly different displayQuestion than default, used for conditional in timeLeft() up top
+        displayQuestion.textContent = "Click to Try Again!";
+    }, 1500);
+}
+
+function highScore() {
+    var scoreLi = document.createElement("li")
+    var playerInit = prompt("Enter Initials: ").toUpperCase() + ": " + score;
+    console.log(playerInit);
+    scoreLi.innerHTML = playerInit;
+    console.log(scoreLi);
+    document.getElementById("score-list").appendChild(scoreLi);
+    clearBoard();
+}
+
+
+/*  CODE GRAVEYARD  */
+
+    //          // was part of restTime()
+    // new setInterval to stop timeLeft()
+    // var newTimerInterval = setInterval(function () {
+    //     if (secLeft === 0) {
+    //         clearInterval(newTimerInterval);
+    //     }
+    // }, 700);
+    // secLeft = 61;   // that extra second is needed to make sure the html timer says 60, not 59
+
+
+    //              // was part of nextQuestion()
+        // else if (questionIndex == questionBank.length - 1) {
     //     score++;
     //     scoreText.textContent = "Score: " + score;
     // }
@@ -198,54 +266,19 @@ function nextQuestion() {
     //     }, 300);
     //     endGame();
     // }
-    else {
-        setTimeout(function () {
-            alert("Pencils down. Your score was " + score + " out of 5.");
-        }, 300);
-        endGame();
-    }
-}
 
-// endGame() prompts to play again, OK resets the game, Cancel does... nothing yet??
-var play;
-function endGame() {
-    // resetTimer();
-    setTimeout(function () {
-        play = confirm("Would you like to play again?");
-        if (play == true) {
-            console.log(true)
-            questionIndex = 0;
-            score = 0;
-            scoreText.textContent = "Score: " + score;
-            clearBoard();
-        }
-        else {
-            clearBoard();
-        }
-    }, 1000);
-}
 
-function clearBoard() {
-    // hides the quiz buttons until restart
-    setTimeout(function () {
-        var quizCard = document.querySelector("#quiz-card");
-        quizCard.style.opacity = 0;
-    }, 1000);
-    // display Start button, nextQuestion() starts with questionIndex++ so need -1 to show first question
-    setTimeout(function () {
-        startBtn.style.opacity = 1;
-        questionIndex = -1;
-        nextQuestion();
-        // slightly different displayQuestion than default, used in timeLeft() up top
-        displayQuestion.textContent = "Click to Try Again!";
-    }, 1500);
-}
-
-    //          // was part of restTime()
-    // new setInterval to stop timeLeft()
-    // var newTimerInterval = setInterval(function () {
-    //     if (secLeft === 0) {
-    //         clearInterval(newTimerInterval);
-    //     }
-    // }, 700);
-    // secLeft = 61;   // that extra second is needed to make sure the html timer says 60, not 59
+    //              // was part of endGame()
+//         play = confirm("Would you like to play again?");
+//         if (play == true) {
+//             console.log(true)
+//             questionIndex = 0;
+//             score = 0;
+//             scoreText.textContent = "Score: " + score;
+//             clearBoard();
+//         }
+//         else {
+//             clearBoard();
+//         }
+//     }, 1000);
+// }
