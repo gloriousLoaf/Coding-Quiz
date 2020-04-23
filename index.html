@@ -27,13 +27,13 @@
             <!-- spacer col -->
             <div class="col"></div>
             <!-- Question, Score, Timer -->
-            <div class="col-sm-9">
+            <div class="col-sm-8">
                 <div class="card bg-secondary">
                     <div class="card-body">
                         <div class="card-title" id="status-card">
                             <ul id="question-timer">
                                 <li id="display-q">Click Start When Ready!</li>
-                                <!-- can't figure out why I had to place these in reverse order -->
+                                <!-- can't figure out why I had to place these in reverse order in html? -->
                                 <li class="mr-5" id="time-text">Time: &nbsp<span id="time">60</span></li>
                                 <li class="mr-5" id="score-text">Score: 0</li>
                             </ul>
@@ -45,12 +45,32 @@
             <div class="col"></div>
         </div>
 
+        <!-- spacer row -->
+        <div class="row">&nbsp</div>
+
         <div class="row">
-            <!-- spacer col -->
-            <div class="col"></div>
+            <!-- High Score Card -->
+            <div class="col">
+                <div class="score">
+                    <div class="card bg-secondary" style="opacity: 0" id="high-scores">
+                        <div class="card-text" id="breakers">
+                            <!-- append high score <li>'s w/ each highScore() -->
+                            <ul id="score-list">High Scores</ul>
+                            <!-- remove last <br> w/ each highScore() keeps card size stable-->
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Answer Buttons -->
-            <div class="col-sm-9">
+            <div class="col-sm-8">
                 <div class="card bg-secondary" style="opacity: 0" id="quiz-card">
                     <div class="card-body">
                         <div id="answer-buttons">
@@ -63,29 +83,30 @@
                 </div>
             </div>
 
-            <!-- spacer col -->
-            <div class="col"></div>
-        </div>
-
-        <div class="row">
-            <!-- spacer col -->
-            <div class="col"></div>
-
-            <div class="col-sm-9">
-                <div class="card bg-secondary" id="high-scores">
-                    <div class="card-body">
-                        <div class="card-title">
-                            <ul id="score-list">High Scores:</ul>
+            <div class="col">
+                <!-- Clear Buttons -->
+                <div class="card bg-secondary" style="opacity: 0" id="toggles">
+                    <div class="card-text">
+                        <p class="clear-text">Clear Scores?</p>
+                        <div class="card-body">
+                            <button type="button" class="btn btn-success btn-sm btn-block"
+                                id="clear-button">Clear</button>
+                        </div>
+                        <p class="clear-text">Restart?</p>
+                        <div class="card-body">
+                            <button type="button" class="btn btn-danger btn-sm btn-block"
+                                id="restart-button">Restart</button>
                         </div>
                     </div>
+                    <br>
                 </div>
             </div>
-
-            <!-- spacer col -->
-            <div class="col"></div>
         </div>
 
+        <script src="https://code.jquery.com/jquery-3.5.0.min.js"
+            integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
         <script src="./assets/js/script.js"></script>
+
 </body>
 
 </html>

@@ -14,7 +14,6 @@ body {
     color: #fff;
     background-color: #333;
     opacity: 0.95;
-    /* margin-bottom: 10px; */
     margin: 0 50px 10px 50px;
     border-style: solid 1px;
     border-radius: 15px;
@@ -34,7 +33,6 @@ body {
 
 
 /* Quiz Cards */
-
 .card {
     font-size: 1.3em;
     color: #fff;
@@ -45,8 +43,8 @@ body {
     margin-bottom: -30px;
 }
 
-.card button {
-    text-align: left;
+.card #answer-buttons button {
+    /* text-align: left; */
     margin: 10px 5px;
 }
 
@@ -60,13 +58,29 @@ body {
     font-weight: 500;
 }
 
-/* the buttons were 1% too long on the right edge ;) */
-.card #answer-buttons button.btn-lg {
-    width: 99%;
+/* the buttons were 2% too long on the right edge ;) */
+.card #answer-buttons .btn-lg {
+    width: 98%;
 }
 
-.card #high-scores ul {
-    display: inline-flex;
-    list-style: none;
 
+/* High Score & Clear sidebars */ 
+
+.card #score-list {
+    text-align: center;
+    list-style: none;
+    margin-top: 10px;
+    margin-left: -50px;
+}
+
+.card .clear-text {
+    text-align: center;
+    list-style: none;
+    margin-top: 10px;
+}
+
+.card #clear-button, .card #restart-button {
+    margin-top: -10px;
+    font-size: 0.8em;
+    text-align: center;
 }

@@ -1,18 +1,25 @@
 /* Start Button & Timer functions and events */
 
 var startBtn = document.getElementById("start-btn");
+var highScores = document.getElementById("high-scores");
+var toggles = document.getElementById("toggles");
+// on restarting quiz, the card remains visible, only buttons disappear / reappear
+var answerButtons = document.querySelector("#answer-buttons");
 var sixtySec = document.getElementById("time");
 var secLeft = 60;
 
 startBtn.addEventListener("click", function () {
     event.preventDefault();
     startBtn.style.opacity = 0;
+    highScores.style.opacity = 0.8;
+    toggles.style.opacity = 0.8;
+    answerButtons.style.opacity = 1;
     displayFirst();
     timeLeft();
     makeQuiz();     // below questionBank[]
 });
 
-// quiz starts off hidden, this displays it on Start click
+// quiz starts off hidden, this displays it on Start button click
 function displayFirst() {
     var card = document.querySelector(".card");
     card.style.opacity = 1;
@@ -28,7 +35,7 @@ function timeLeft() {
 
         /* This specific displayQuestion value is set by clearBoard() 
             below to trigger clearInterval. Makes timer work on replay! */
-        if (displayQuestion.textContent == "Click to Try Again!") {
+        if (displayQuestion.textContent == "Click Start to Try Again!") {
             resetTimer();
             clearInterval(timerInterval);
         }
@@ -45,7 +52,7 @@ function timeLeft() {
             }, 250);
             endGame();
         }
-    }, 300);                    // don't forget to set this to 1000!!!
+    }, 300);                                                // don't forget to set this to 1000!!!
 }
 
 // puts 60sec on the clock, changes Timer color back to white
@@ -128,18 +135,32 @@ answerButtons.addEventListener("click", function () {
     event.preventDefault();
     // puts textContent of the clicked button into userChoice
     var userChoice = event.target.textContent;
-
+    // for styling userChoice button if correct
+    var clickedButton = event.target.style;
     // pulls rightAnswer from questionBank
     var rightAnswer = questionBank[i].correctAnswer;
-    console.log("User: " + userChoice);                     // need to dislay right / wrong
+    console.log("User: " + userChoice);
 
+    // setTimeouts briefly flash green buttons for correct answers and red for wrong
     if (userChoice == rightAnswer) {
         console.log("correct");
-        correctNext();
+        clickedButton.backgroundColor = "green";
+        setTimeout(function () {
+            clickedButton.backgroundColor = "#0275d8";
+        }, 400);
+        setTimeout(function () {
+            correctNext();
+        }, 1000);
     }
     else if (userChoice !== rightAnswer) {
         console.log("nope");
-        wrongNext();
+        clickedButton.backgroundColor = "red";
+        setTimeout(function () {
+            clickedButton.backgroundColor = "#0275d8";
+        }, 400);
+        setTimeout(function () {
+            wrongNext();
+        }, 1000);
     }
 })
 
@@ -182,13 +203,11 @@ function nextQuestion() {
 // endGame() prompts to save high score, OK or Cancel clearBoard()
 var play;
 function endGame() {
-    // resetTimer();
     setTimeout(function () {
         play = confirm("Would you like to save your score?");
         if (play == true) {
             console.log(true)
             questionIndex = 0;
-            // score = 0;
             scoreText.textContent = "Score: " + score;
             highScore();
         }
@@ -198,13 +217,14 @@ function endGame() {
     }, 1000);
 }
 
+// clearBoard() was pretty hard to get right. Resets the board to play another round.
 function clearBoard() {
     score = 0;
     scoreText.textContent = "Score: " + score;
     // hides the quiz buttons until restart
     setTimeout(function () {
-        var quizCard = document.querySelector("#quiz-card");
-        quizCard.style.opacity = 0;
+        var answerButtons = document.querySelector("#answer-buttons");
+        answerButtons.style.opacity = 0;
     }, 1000);
     // display Start button, nextQuestion() starts with questionIndex++, need -1 to show first question
     setTimeout(function () {
@@ -212,19 +232,37 @@ function clearBoard() {
         questionIndex = -1;
         nextQuestion();
         // slightly different displayQuestion than default, used for conditional in timeLeft() up top
-        displayQuestion.textContent = "Click to Try Again!";
+        displayQuestion.textContent = "Click Start to Try Again!";
     }, 1500);
 }
 
+// highScore() prompts for initals and appends new li's to #score-list
 function highScore() {
-    var scoreLi = document.createElement("li")
-    var playerInit = prompt("Enter Initials: ").toUpperCase() + ": " + score;
-    console.log(playerInit);
-    scoreLi.innerHTML = playerInit;
-    console.log(scoreLi);
-    document.getElementById("score-list").appendChild(scoreLi);
+    // since we learned a little jQuery this week...
+    var $newScore = $("#score-list");
+    var $playerInit = prompt("Enter Initials: ").toUpperCase() + "  " + score;
+    console.log($playerInit);
+    $newScore.append("<li>" + $playerInit + "<li>");
+    // deletes last <br> in #breakers <div> per each high score. keeps card sizing stable.
+    $("#breakers br:last").remove();
     clearBoard();
 }
+
+// clearBtn empties high score card, resets all the <br>'s
+var clearBtn = document.getElementById("clear-button");
+clearBtn.addEventListener("click", function () {
+    $(".card-text li").remove();
+    $("#breakers br").remove();
+    // tried to for-loop this, but that never quite worked right
+    $("#breakers").append("<br>", "<br>", "<br>", "<br>", "<br>", "<br>", "<br>");
+});
+
+// Restart button simply calls clearBoard()
+var restartBtn = document.getElementById("restart-button");
+restartBtn.addEventListener("click", function () {
+    clearBoard();
+});
+
 
 
 /*  CODE GRAVEYARD  */
@@ -281,4 +319,14 @@ function highScore() {
 //             clearBoard();
 //         }
 //     }, 1000);
+// }
+
+//              // was part of high score
+    //     var scoreLi = document.createElement("li")
+//     var playerInit = prompt("Enter Initials: ").toUpperCase() + "  " + score;
+//     console.log(playerInit);
+//     scoreLi.innerHTML = playerInit;
+//     console.log(scoreLi);
+//     document.getElementById("score-list").appendChild(scoreLi);
+//     clearBoard();
 // }
