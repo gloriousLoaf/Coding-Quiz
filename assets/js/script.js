@@ -15,7 +15,6 @@ $(document).ready(function () {
         $answerButtons.animate({ opacity: "1" });
         $card.animate({ opacity: "1" });
         $quizCard.animate({ opacity: "1" });
-        // displayFirst();
         timeLeft();
         makeQuiz();     // below questionBank[]
     });
@@ -38,7 +37,7 @@ $(document).ready(function () {
             if (secLeft < 10) {
                 sixtySec.style.color = "#ff124d";
             }
-            // at 0 endGame(), see line 201                         // may have changed!!!
+            // at 0 endGame(), see line 201
             if (secLeft === 0) {
                 resetTimer();
                 clearInterval(timerInterval);
@@ -47,7 +46,7 @@ $(document).ready(function () {
                 }, 250);
                 endGame();
             }
-        }, 300);                                                // don't forget to set this to 1000!!!
+        }, 1000);
     }
 
     // puts 60sec on the clock, changes Timer color back to white
@@ -58,43 +57,43 @@ $(document).ready(function () {
     }
 
 
-    /* Question card functions & events */
+    /* Question Card */
 
     // Possible questions
     var questionBank = [
         {
-            question: "What is the first question?",
-            answers: ["boiled denim", "Sheryl Sandberg", "a still functioning Zune", "null"],
+            question: "What HTML tag is used to underline text?",
+            answers: ["<em>", "<u>", "<ul>", "<s>"],
             get correctAnswer() {
                 return this.answers[1];
             }
         },
         {
-            question: "What is the second question?",
-            answers: ["hotdogs", "Sundar Pichai", "Windows 95", "null"],
+            question: "What is the CSS name for device adaptabilty?",
+            answers: ["Adaptable", "iDisplay", "Responsive", "Shifting"],
             get correctAnswer() {
-                return this.answers[1];
+                return this.answers[2];
             }
         },
         {
-            question: "What is the third question?",
-            answers: ["milk-steak", "Satya Nadella", "that dial-up modem screech", "null"],
+            question: "How many (conditions) must else { } have?",
+            answers: ["0", "1", "2", "3"],
             get correctAnswer() {
-                return this.answers[1];
+                return this.answers[0];
             }
         },
         {
-            question: "What is the fourth question?",
-            answers: ["jellybeans (raw)", "The Winklevoss Twins", "that AIM door knock", "null"],
+            question: "What is the syntax to get an element by id?",
+            answers: ['$(id:quiz)', '$"(#quiz)"', '$("#quiz")', '"($quiz)"'],
             get correctAnswer() {
-                return this.answers[1];
+                return this.answers[2];
             }
         },
         {
-            question: "What is the fifth question?",
-            answers: ["straight paint", "Satoshi Nakamoto", "cat vs earbuds", "null"],
+            question: "What is the result of numArray.push(7)?",
+            answers: ["numArray[7, 12, 4, 8]", "numArray(7)[12, 4, 8]", "numArray[12, 4, 8, 7]", "numArray[12, 4, 7, 8]"],
             get correctAnswer() {
-                return this.answers[1];
+                return this.answers[2];
             }
         }
     ];
@@ -114,15 +113,16 @@ $(document).ready(function () {
 
     // Making the Quiz
     function makeQuiz() {
-        if (questionIndex < questionBank.length) {
-            displayQuestion.textContent = currentQuestion;
+        // display current question, if index less than
+        // if (questionIndex < questionBank.length) {
+        displayQuestion.textContent = currentQuestion;
 
-            // loop to assign buttons with possible answers
-            for (i = 0; i <= buttons.length - 1; i++) {
-                var fillButtons = questionBank[questionIndex].answers;
-                buttons[i].textContent = fillButtons[i];
-            }
+        // loop to assign buttons with possible answers
+        for (i = 0; i <= buttons.length - 1; i++) {
+            var fillButtons = questionBank[questionIndex].answers;
+            buttons[i].textContent = fillButtons[i];
         }
+        // }
     }
 
     // add listener to all answer buttons, send user clicks to appropriate functions
@@ -219,14 +219,12 @@ $(document).ready(function () {
         scoreText.textContent = "Score: " + score;
         // hides the quiz buttons until restart
         setTimeout(function () {
-            var answerButtons = document.getElementById("answer-buttons");
-            answerButtons.style.opacity = 0;
+            $answerButtons.animate({ opacity: "0" });
         }, 1000);
 
         // display Start button, nextQuestion() starts with questionIndex++, need -1 to show first question
         setTimeout(function () {
-            var startBtn = document.getElementById("start-button");
-            startBtn.style.opacity = 1;
+            $startBtn.animate({ opacity: "1" });
             questionIndex = -1;
             nextQuestion();
             // slightly different displayQuestion than default, used for conditional in timeLeft() up top
@@ -261,112 +259,3 @@ $(document).ready(function () {
     });
 
 });
-
-
-
-
-/*  CODE GRAVEYARD  */
-
-    //          // was part of restTime()
-    // new setInterval to stop timeLeft()
-    // var newTimerInterval = setInterval(function () {
-    //     if (secLeft === 0) {
-    //         clearInterval(newTimerInterval);
-    //     }
-    // }, 700);
-    // secLeft = 61;   // that extra second is needed to make sure the html timer says 60, not 59
-
-
-    //              // was part of nextQuestion()
-        // else if (questionIndex == questionBank.length - 1) {
-    //     score++;
-    //     scoreText.textContent = "Score: " + score;
-    // }
-    // else if (questionIndex == questionBank.length - 1 && score < 5) {       // &&???
-    //     alert("Pencils down. Your score was " + score + " out of 5.");
-    //     // endGame();
-    // }
-    // else {
-    //     setTimeout(function () {
-    //         alert("Perfect score!");
-    //     }, 300);
-    //     endGame();
-    // }
-    // if (secLeft == 0) {
-    //     setTimeout(function () {
-    //         alert("Pencils down. Your score was " + score + " out of 5.");
-    //     }, 250);
-    //     endGame();
-    // }
-    // else if (questionIndex > 0 && questionIndex < questionBank.length) {
-    //     setTimeout(function () {
-    //         alert("Pencils down. Your score was " + score + " out of 5.");
-    //     }, 300);
-    //     endGame();
-    // }
-
-
-    //              // was part of endGame()
-//         play = confirm("Would you like to play again?");
-//         if (play == true) {
-//             console.log(true)
-//             questionIndex = 0;
-//             score = 0;
-//             scoreText.textContent = "Score: " + score;
-//             clearBoard();
-//         }
-//         else {
-//             clearBoard();
-//         }
-//     }, 1000);
-// }
-
-//              // was part of high score
-    //     var scoreLi = document.createElement("li")
-//     var playerInit = prompt("Enter Initials: ").toUpperCase() + "  " + score;
-//     console.log(playerInit);
-//     scoreLi.innerHTML = playerInit;
-//     console.log(scoreLi);
-//     document.getElementById("score-list").appendChild(scoreLi);
-//     clearBoard();
-// }
-
-// Possible questions
-
-// var questionBank = [
-//     {
-//         question: "What is the first question?",
-//         answers: ["boiled denim", "Sheryl Sandberg", "Brendan Eich", "null"],
-//         get correctAnswer() {
-//             return this.answers[1];
-//         }
-//     },
-//     {
-//         question: "What is the second question?",
-//         answers: ["hotdogs", "Sheryl Sandberg", "Brendan Eich", "null"],
-//         get correctAnswer() {
-//             return this.answers[1];
-//         }
-//     },
-//     {
-//         question: "What is the third question?",
-//         answers: ["milk-steak", "Sheryl Sandberg", "Brendan Eich", "null"],
-//         get correctAnswer() {
-//             return this.answers[1];
-//         }
-//     },
-//     {
-//         question: "What is the fourth question?",
-//         answers: ["jellybeans (raw)", "Sheryl Sandberg", "Brendan Eich", "null"],
-//         get correctAnswer() {
-//             return this.answers[1];
-//         }
-//     },
-//     {
-//         question: "What is the fifth question?",
-//         answers: ["straight paint", "Sheryl Sandberg", "Brendan Eich", "null"],
-//         get correctAnswer() {
-//             return this.answers[1];
-//         }
-//     }
-// ];
