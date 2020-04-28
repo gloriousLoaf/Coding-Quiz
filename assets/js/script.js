@@ -235,7 +235,7 @@ $(document).ready(function () {
     // highScore() prompts for initals and appends new li's to #score-list
     function highScore() {
         var $newScore = $("#score-list");
-        var $playerInit = prompt("Enter Initials: ").toUpperCase() + "  " + score;
+        var $playerInit = prompt("Enter Up To 3 Initials: ").toUpperCase() + "  " + score;
         console.log($playerInit);
         $newScore.append("<li>" + $playerInit + "<li>");
         // deletes last <br> in #breakers <div> per each high score. keeps card sizing stable.
